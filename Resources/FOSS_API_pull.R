@@ -1,4 +1,28 @@
+library(httr)
+library(jsonlite)
+
+# ORIGINAL QUERY (works)
+
+hake_get <- GET("https://apps-st.fisheries.noaa.gov/ods/foss/trade_data/",
+  query = list(q = '{"name":{"$like":"%HAKE%"},"source":"EXP","year":{"$gt": 2018}}'))
+
+http_status(hake_get)
+
+hake_get
+
+hake_list <- jsonlite::fromJSON(rawToChar(hake_get$content))
+
+hake_df <- hake_list$items
+
+hake_df$links <- NULL
+
+head(hake_df)
+
+
+# UPGRADED QUERY (does not work)
+
 exports_pull <- function(minyr, name) {
+
     exports_get <- GET("https://apps-st.fisheries.noaa.gov/ods/foss/trade_data/", # nolint: indentation_linter.
         query = list(
             q = paste0('{
