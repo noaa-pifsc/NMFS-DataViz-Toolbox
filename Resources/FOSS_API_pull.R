@@ -1,4 +1,4 @@
-exports_pull <- function(minyr, defl, name) {
+exports_pull <- function(minyr, name) {
     exports_get <- GET("https://apps-st.fisheries.noaa.gov/ods/foss/trade_data/", # nolint: indentation_linter.
         query = list(
             q = paste0('{
@@ -23,9 +23,7 @@ exports_pull <- function(minyr, defl, name) {
     exports_list$items$links <- NULL
 
     exports_list_items <- exports_list$items |>
-        mutate(YEAR = as.numeric(year, .keep = 'unused')) |>
-        left_join(defl, by = c('YEAR')) |>
-        mutate(val = val/DEFL, .keep = 'unused')
+        mutate(YEAR = as.numeric(year, .keep = 'unused')) 
 
     exports_bycountry <- mutate(exports_list_items,
         country = stringr::str_to_title(cntry_name)
