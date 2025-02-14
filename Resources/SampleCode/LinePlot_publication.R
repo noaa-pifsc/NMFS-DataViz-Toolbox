@@ -29,7 +29,6 @@ RadForcing$Year <- as.numeric(RadForcing$Year)
 # Still to add:
 # size 12 font (generally, 10+ should work)
 # Arial font (to render ʻŌlelo Hawaiʻi; Calibri works, too)
-# fix the busy gridding in the ggplot version
 
 # Just a note that this code includes details that you'd only know if you 
 # explored the data and tested out a few parameters.  
