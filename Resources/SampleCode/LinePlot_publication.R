@@ -1,5 +1,5 @@
 # The purpose of this script is to create an example line plot that's 
-# publication-ready and NMFS-branded.
+# publication-ready and NMFS-branded. 
 
 # Set up the environment
 library(tidyverse, quietly = TRUE)
