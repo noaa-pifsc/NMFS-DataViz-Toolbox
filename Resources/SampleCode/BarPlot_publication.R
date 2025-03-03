@@ -32,7 +32,7 @@ RadForcing_gases <- select(RadForcing,
 
 # Make the data "tidy" for easier plotting
 RadForcing_tidy <- RadForcing_gases |>
-  pivot_longer(cols = c(`Carbon dioxide`, Methane, `Nitrous Oxide`, CFCs, HCFCs, HFCs),
+  pivot_longer(cols = c(`Carbon Dioxide`, Methane, `Nitrous Oxide`, CFCs, HCFCs, HFCs),
                names_to = "GHG", values_to = "Forcing")
 
 # Select the most recent year and order the values by their radiative forcing
