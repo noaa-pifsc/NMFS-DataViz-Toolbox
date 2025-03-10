@@ -146,3 +146,21 @@ coral_alt1 <- c("#283A38","#901200", "#DB2207", "#FF6C57")
 #get a tan with pink undertones that is more aligned with the overall gradient:
 
 coral_alt2 <- c("#901200", "#DB2207", "#FF6C57", "#FFD1B4")
+
+#-------------------------------------------------------------------------------
+#categorical palettes
+
+nmfs_cat1 <- c("#003087", "#00797F", "#A5AAAF", "#FFFFFF")
+
+nmfs_cat2 <- c("#056FAA", "#1EBEC7", "#CBCFD1", "#FF8400")
+
+nmfs_cat3 <- c("#3B469A", "#4B8320", "#FFAB38", "#FFFF65")
+
+nmfs_cat4 <- c("#FF6C57", "#737BE6", "#90DFE3", "#F7FAEE")
+
+nmfs_cat5 <- c("#003087", "#B71300", "#00797F", "#A5AAAF", "#FFFFFF")
+
+#all confirmed via Viz Palette
+
+pairs_gradient <- c("#001743", "#00559B", "#1EBEC7", "#90DFE3", "#DB6015", "#FFAB38")
+#confirmed via Viz Palette
