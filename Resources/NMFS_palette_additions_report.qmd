@@ -1,0 +1,298 @@
+---
+title: "NMFS Palette Expansion for Data Visualization"
+format: 
+  docx: 
+    fig-dpi: 300
+---
+
+## Overview
+
+NOAA Fisheries has a well-defined set of colors that comprises its branding palette, which are regularly reviewed and updated. This document is based on the 2024 colors, which are available to staff within the Brand Colors [folder](https://drive.google.com/drive/folders/18qbYMUOzO1PTmxZk10aEGSki-kNI_8bg?usp=drive_link "NMFS Brand Colors") on Google Drive. Colors are provided in RGB and hex code format.
+
+There are 6 gradient palettes and 1 categorical palette identified for use by agency staff. NMFS scientists who routinely visualize data need palettes that are readily distinguishable at small sizes (symbols, lines), and additional categorical palette options.
+
+This report provides 5 additional categorical palette options and 1 paired gradient palette. The report also analyzes the existing gradient and categorical palettes to identify opportunities to improve color separation and overall visibility. Color analysis was completed using the free online tool [Viz Palette](https://projects.susielu.com/viz-palette "Viz Palette") by Elijah Meeks and Susie Lu.
+
+```{r}
+#| echo: false
+#| output: false
+
+#libraries
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(palmerpenguins)
+library(extrafont)
+
+#--------------------------------------------------------------------
+#data prep for palette visualization
+
+#generating a factor with 6 levels
+penguins1 <- penguins |> 
+  drop_na(sex) |> 
+  mutate(species_sex=paste(species, sex, sep = "-")) 
+penguins1$species_sex <- as.factor(penguins1$species_sex)
+
+#factor with 5 levels
+penguins2 <- penguins |> 
+  mutate(species_island=paste(species, island, sep = "-")) |> 
+  drop_na(flipper_length_mm, body_mass_g)
+penguins2$species_island <- as.factor(penguins2$species_island)
+
+#factor with 4 levels
+penguins3 <- penguins |> 
+  filter(species %in% c("Adelie", "Chinstrap")) |> 
+  mutate(species_island=paste(species, island, sep = "-")) |> 
+  drop_na(flipper_length_mm, body_mass_g)
+penguins3$species_island <- as.factor(penguins3$species_island)
+
+```
+
+The code below generates a general ggplot theme that can be used as a simple starting point for data visualization.
+
+```{r}
+sample_plots_theme <- theme_bw() + 
+  theme(plot.title = element_text(family = "Calibri", size = 14),
+        plot.subtitle = element_text(family = "Calibri", size = 12),
+        axis.title = element_text(family = "Calibri", size = 12),
+        axis.text = element_text(family = "Calibri", size = 10),
+        legend.text = element_text(family = "Calibri", size = 10),
+        legend.title = element_blank(),
+        legend.position = "bottom")
+  
+
+```
+
+The [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/ "Palmer Penguins Data") R data package was used to visualize the palettes below. All code used to generate data subsets and visualizations, and palettes with hex codes, are available on GitHub.
+
+```{r}
+#| echo: false
+#| output: false
+
+#Basic plot for 6-level factor
+p6 <- ggplot(penguins1, aes(x = flipper_length_mm, y = body_mass_g, fill = species_sex)) +
+  geom_point(size = 4, color = "black", shape = 21) +
+  sample_plots_theme +
+  labs(x = "Flipper Length (mm)", y = "Body Mass (g)", fill = "Species-Sex")
+
+#Basic plot for 5-level factor
+p5 <- ggplot(penguins2, aes(x = flipper_length_mm, y = body_mass_g, fill = species_island)) +
+  geom_point(size = 4, color = "black", shape = 21) +
+  sample_plots_theme +
+  labs(x = "Flipper Length (mm)", y = "Body Mass (g)", fill = "Species-Island")
+
+#Basic plot for 4-level factor
+p4 <- ggplot(penguins3, aes(x = flipper_length_mm, y = body_mass_g, fill = species_island)) +
+  geom_point(size = 4, color = "black", shape = 21) +
+  sample_plots_theme +
+  labs(x = "Flipper Length (mm)", y = "Body Mass (g)", fill = "Species-Island Subset")
+
+```
+
+## Categorical palettes
+
+Categorical palettes for datasets with 4 and 5 levels were developed using colors from the NOAA Fisheries Color Picker 2024 [document](https://drive.google.com/file/d/1CwhxfmcYraD1_xIi-ZJy5zMJON6yAxGK/view?usp=sharing "NOAA Fisheries Color Picker 2024") in the Brand Colors folder. Color separation for small symbols and lines was verified using the Viz Palette tool.
+
+```{r}
+#| echo: false
+nmfs_cat5 <- c("#003087", "#B71300", "#00797F", "#A5AAAF", "#FFFFFF")
+
+p5 + scale_fill_manual(values = nmfs_cat5, labels = nmfs_cat5) +
+  labs(title = "Categorical Palette with 5 Colors")
+
+```
+
+```{r}
+#| echo: false
+nmfs_cat1 <- c("#003087", "#00797F", "#A5AAAF", "#FFFFFF")
+p4 + scale_fill_manual(values = nmfs_cat1, labels = nmfs_cat1) +
+  labs(title = "Categorical Palette with 4 Colors")
+```
+
+```{r}
+#| echo: false
+nmfs_cat2 <- c("#056FB7", "#1EBEC7", "#CBCFD1", "#FF8400")
+p4 + scale_fill_manual(values = nmfs_cat2, labels = nmfs_cat2) +
+  labs(title = "Categorical Palette with 4 Colors")
+```
+
+```{r}
+#| echo: false
+nmfs_cat3 <- c("#3B469A", "#4B8320", "#FFAB38", "#FFFF65")
+p4 + scale_fill_manual(values = nmfs_cat3, labels = nmfs_cat3) +
+  labs(title = "Categorical Palette with 4 Colors")
+```
+
+```{r}
+#| echo: false
+nmfs_cat4 <- c("#FF6C57", "#737BE6", "#90DFE3", "#F7FAEE")
+p4 + scale_fill_manual(values = nmfs_cat4, labels = nmfs_cat4) +
+  labs(title = "Categorical Palette with 4 Colors")
+```
+
+## Opportunities to improve the existing categorical Regional Color Set for use in data visualization
+
+The NOAA Fisheries Color Picker 2024 [document](https://drive.google.com/file/d/1CwhxfmcYraD1_xIi-ZJy5zMJON6yAxGK/view?usp=sharing "NMFS Color Picker 2024") contains a 6-color categorical color palette called the "Regional Color Set". Analysis of this color set using Viz Palette flagged potential issues with the separation of 2 colors (teal blue #00797F and green #4B8320) when using small symbols or lines in a figure.
+
+```{r}
+#| echo: false
+regions <- c("#002364", "#00797F", "#4B8320", "#5761C0", "#DB6015", "#B71300")
+p6 + scale_fill_manual(values = regions, labels = regions, guide = guide_legend(nrow = 2)) +
+  labs(title = "NMFS Regional Color Set")
+```
+
+Substituting either of two available lighter shades of green improves the separation of the blue and green symbols in the scatter plot.
+
+```{r}
+#| echo: false
+regions_viz1 <- c("#002364", "#00797F", "#76BC21", "#5761C0", "#DB6015", "#B71300")
+p6 + scale_fill_manual(values = regions_viz1, labels = regions_viz1, guide = guide_legend(nrow = 2)) +
+  labs(title = "Regions Color Set with Light Green 1")
+```
+
+```{r}
+#| echo: false
+regions_viz2 <- c("#002364", "#00797F", "#B1DC6B", "#5761C0", "#DB6015", "#B71300")
+p6 + scale_fill_manual(values = regions_viz2, labels = regions_viz2, guide = guide_legend(nrow = 2)) +
+  labs(title = "Regions Color Set with Light Green 2")
+```
+
+## Paired gradient palette
+
+One common scientific data visualization involves the comparison of multiple treatments, where each treatment has multiple levels. This type of visualization could be aided by a paired gradient palette, which is a blend of categorical and gradient approaches. The following palette uses the NMFS Color Set and allows for up to three treatments and two levels:
+
+```{r}
+#| echo: false
+pairs_gradient <- c("#001743", "#00559B", "#1EBEC7", "#90DFE3", "#DB6015", "#FFAB38")
+p6 + scale_fill_manual(values = pairs_gradient, labels = pairs_gradient) +
+  labs(title = "Paired Gradient Palette")
+```
+
+## Opportunities to improve existing gradient palettes for use in data visualization
+
+Analysis of the existing NMFS gradient palettes using Viz Palette flagged potential issues with color separation in 5 of the 6 palettes ("oceans", "waves", "urchin", "crustacean", and "coral") when using small symbols or lines in a figure. The full NMFS color set was used to suggest improvements below.
+
+##### Oceans
+
+One shade of blue ( #002364) was identified by Viz Palette as difficult to distinguish from the two surrounding blues ( #001743 and #003087), illustrated below:
+
+```{r}
+#| echo: false
+oceans <- c("#001743", "#002364", "#003087", "#0085CA", "#5EB6D9", "#C6E6F0")
+p6 + scale_fill_manual(values = oceans, labels = oceans) +
+  labs(title = "NMFS Oceans Palette")
+
+```
+
+A simple substitution within the existing NMFS Color Set that improves overall color separation is to change #002364 to #00559B, which is a different shade of blue:
+
+```{r}
+#| echo: false
+oceans_viz <- c("#001743", "#003087", "#00559B", "#0085CA", "#5EB6D9", "#C6E6F0")
+p6 + scale_fill_manual(values = oceans_viz, labels = oceans_viz) +
+  labs(title = "NMFS Oceans Palette with Blue Substitution")
+```
+
+##### Waves
+
+Two colors were identified by Viz Palette as difficult to visually separate in small symbols and lines (#005E5E and #00797F), illustrated below:
+
+```{r}
+#| echo: false
+waves <- c("#005E5E", "#00797F", "#1EBEC7", "#90DFE3")
+p4 + scale_fill_manual(values = waves, labels = waves) +
+  labs(title = "NMFS Waves Palette")
+```
+
+A simple substitution within the existing NMFS Color Set that improves overall color separation is to take the darkest teal (#005E5E) and replace it with one of the NOAA background colors that is a gray with green undertones (#283A38):
+
+```{r}
+#| echo: false
+waves_viz <- c("#283A38", "#00797F", "#1EBEC7", "#90DFE3")
+p4 + scale_fill_manual(values = waves_viz, labels = waves_viz) +
+  labs(title = "NMFS Waves Palette with Dark Gray Substitution")
+```
+
+##### Urchin
+
+One shade of purple ( #5761C0) was identified by Viz Palette as difficult to distinguish from the two surrounding purples ( #3B469A and #737BE6), illustrated below:
+
+```{r}
+#| echo: false
+urchin <- c("#3B469A", "#5761C0", "#737BE6", "#A8B8FF")
+p4 + scale_fill_manual(values = urchin, labels = urchin) +
+  labs(title = "NMFS Urchin Palette")
+```
+
+This situation was a little more challenging, because there are fewer purples in the NMFS Color Set, and the problem color was in the interior of the gradient. The visualization could be improved by dropping the problem color ( #5761C0) and adding one of the NMFS background colors, a cool light gray (#F1F2F3) to the end of the gradient:
+
+```{r}
+#| echo: false
+urchin_viz <- c("#3B469A", "#737BE6", "#A8B8FF", "#F1F2F3")
+p4 + scale_fill_manual(values = urchin_viz, labels = urchin_viz) +
+  labs(title = "NMFS Urchin Palette with Light Gray Addition")
+```
+
+##### Crustacean
+
+One shade of orange ( #FF8400) was identified by Viz Palette as difficult to distinguish from the two surrounding oranges ( #DB6015 and #FFAB38), illustrated below:
+
+```{r}
+#| echo: false
+crustacean <- c("#853B00", "#DB6015", "#FF8400", "#FFAB38")
+p4 + scale_fill_manual(values = crustacean, labels = crustacean) +
+  labs(title = "NMFS Crustacean Palette")
+```
+
+This is a similarly challenging situation as the Urchin palette, with limited orange options and a problem within the interior of the gradient. Two potential options to improve the visualization involve dropping the problem color ( #FF8400) and either adding one of the NMFS background colors, a dark gray (#283A38) to the beginning of the gradient, or one of the NMFS alert colors, a yellow (#FFFF65) to the end of the gradient:
+
+```{r}
+#| echo: false
+crustacean_viz1 <- c("#283A38", "#853B00", "#DB6015", "#FFAB38")
+p4 + scale_fill_manual(values = crustacean_viz1, labels = crustacean_viz1) +
+  labs(title = "NMFS Crustacean Palette with Dark Gray Addition")
+
+crustacean_viz2 <- c("#853B00", "#DB6015", "#FFAB38", "#FFFF65")
+p4 + scale_fill_manual(values = crustacean_viz2, labels = crustacean_viz2) +
+  labs(title = "NMFS Crustacean Palette with Yellow Addition")
+```
+
+The gray and the yellow tend to stand out in these figures, which is not typically the goal of a visualization involving gradient palettes. By slightly tweaking the orange that was causing color separation issues, you get a gold with orange undertones that is more aligned with the overall palette (#FFDD6A), while still addressing the color separation problem. The drawback to this approach is that the new color is not within the NMFS Color Set:
+
+```{r}
+#| echo: false
+crustacean_viz3 <- c("#853B00", "#DB6015", "#FFAB38", "#FFDD6A")
+p4 + scale_fill_manual(values = crustacean_viz3, labels = crustacean_viz3) +
+  labs(title = "NMFS Crustacean Palette With Gold Substitution",
+       subtitle = "Note: fourth color outside NMFS Color Set")
+```
+
+##### Coral
+
+Two colors were identified by Viz Palette as difficult to visually separate in small symbols and lines (#B71300 and #901200), illustrated below:
+
+```{r}
+#| echo: false
+coral <- c("#901200", "#B71300", "#DB2207", "#FF6C57")
+p4 + scale_fill_manual(values = coral, labels = coral) +
+  labs(title = "NMFS Coral Palette")
+```
+
+This situation is similar to that observed for the Urchin and Crustacean palettes in that the issue lies within the interior of the gradient. One option is to remove #B71300, but replacing it with a light gray at the end of the gradient is tricky because none of the NMFS light gray background colors look very good with this warm palette. Using a dark gray at the beginning improves the overall color separation:
+
+```{r}
+#| echo: false
+coral_viz1 <- c("#283A38","#901200", "#DB2207", "#FF6C57")
+p4 + scale_fill_manual(values = coral_viz1, labels = coral_viz1) +
+  labs(title = "NMFS Coral Palette with Gray Addition")
+```
+
+The dark gray stands out in this figure, which is not typically the goal of a visualization involving gradient palettes. By removing #B71300 and tweaking the lightest color of the palette, you get a peach color that is more aligned with the overall gradient (#FFD1B4):
+
+```{r}
+#| echo: false
+coral_viz2 <- c("#901200", "#DB2207", "#FF6C57", "#FFD1B4")
+p4 + scale_fill_manual(values = coral_viz2, labels = coral_viz2) +
+  labs(title = "NMFS Coral Palette with Peach Addition",
+       subtitle = "Note: fourth color outside NMFS Color Set")
+```
