@@ -1,6 +1,8 @@
 ---
 title: "NMFS Palette Expansion for Data Visualization"
-format: docx
+format: 
+  docx: 
+    fig-dpi: 300
 ---
 
 ## Overview
@@ -55,7 +57,7 @@ sample_plots_theme <- theme_bw() +
         axis.title = element_text(family = "Calibri", size = 12),
         axis.text = element_text(family = "Calibri", size = 10),
         legend.text = element_text(family = "Calibri", size = 10),
-        legend.title = element_text(family = "Calibri", size = 12),
+        legend.title = element_blank(),
         legend.position = "bottom")
   
 
@@ -95,42 +97,37 @@ Categorical palettes for datasets with 4 and 5 levels were developed using color
 #| echo: false
 nmfs_cat5 <- c("#003087", "#B71300", "#00797F", "#A5AAAF", "#FFFFFF")
 
-p5 + scale_fill_manual(values = nmfs_cat5, guide = guide_legend(nrow = 2)) +
-  labs(title = "Categorical Palette with 5 Colors",
-       subtitle = "Hex codes: #003087, #B71300, #00797F, #A5AAAF, #FFFFFF")
+p5 + scale_fill_manual(values = nmfs_cat5, labels = nmfs_cat5) +
+  labs(title = "Categorical Palette with 5 Colors")
 
 ```
 
 ```{r}
 #| echo: false
 nmfs_cat1 <- c("#003087", "#00797F", "#A5AAAF", "#FFFFFF")
-p4 + scale_fill_manual(values = nmfs_cat1, guide = guide_legend(nrow = 2)) +
-  labs(title = "Categorical Palette with 4 Colors",
-       subtitle = "Hex codes: #003087, #00797F, #A5AAAF, #FFFFFF")
+p4 + scale_fill_manual(values = nmfs_cat1, labels = nmfs_cat1) +
+  labs(title = "Categorical Palette with 4 Colors")
 ```
 
 ```{r}
 #| echo: false
 nmfs_cat2 <- c("#056FB7", "#1EBEC7", "#CBCFD1", "#FF8400")
-p4 + scale_fill_manual(values = nmfs_cat2, guide = guide_legend(nrow = 2)) +
-  labs(title = "Categorical Palette with 4 Colors",
-       subtitle = "Hex codes: #056FB7, #1EBEC7, #CBCFD1, #FF8400")
+p4 + scale_fill_manual(values = nmfs_cat2, labels = nmfs_cat2) +
+  labs(title = "Categorical Palette with 4 Colors")
 ```
 
 ```{r}
 #| echo: false
 nmfs_cat3 <- c("#3B469A", "#4B8320", "#FFAB38", "#FFFF65")
-p4 + scale_fill_manual(values = nmfs_cat3, guide = guide_legend(nrow = 2)) +
-  labs(title = "Categorical Palette with 4 Colors",
-       subtitle = "Hex codes: #3B469A, #4B8320, #FFAB38, #FFFF65")
+p4 + scale_fill_manual(values = nmfs_cat3, labels = nmfs_cat3) +
+  labs(title = "Categorical Palette with 4 Colors")
 ```
 
 ```{r}
 #| echo: false
 nmfs_cat4 <- c("#FF6C57", "#737BE6", "#90DFE3", "#F7FAEE")
-p4 + scale_fill_manual(values = nmfs_cat4, guide = guide_legend(nrow = 2)) +
-  labs(title = "Categorical Palette with 4 Colors",
-       subtitle = "Hex codes: #FF6C57, #737BE6, #90DFE3, #F7FAEE")
+p4 + scale_fill_manual(values = nmfs_cat4, labels = nmfs_cat4) +
+  labs(title = "Categorical Palette with 4 Colors")
 ```
 
 ## Opportunities to improve the existing categorical Regional Color Set for use in data visualization
@@ -140,9 +137,8 @@ The NOAA Fisheries Color Picker 2024 [document](https://drive.google.com/file/d/
 ```{r}
 #| echo: false
 regions <- c("#002364", "#00797F", "#4B8320", "#5761C0", "#DB6015", "#B71300")
-p6 + scale_fill_manual(values = regions, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Regional Color Set",
-       subtitle = "Hex codes: #002364, #00797F, #4B8320, #5761C0, #DB6015,\n#B71300")
+p6 + scale_fill_manual(values = regions, labels = regions, guide = guide_legend(nrow = 2)) +
+  labs(title = "NMFS Regional Color Set")
 ```
 
 Substituting either of two available lighter shades of green improves the separation of the blue and green symbols in the scatter plot.
@@ -150,17 +146,15 @@ Substituting either of two available lighter shades of green improves the separa
 ```{r}
 #| echo: false
 regions_viz1 <- c("#002364", "#00797F", "#76BC21", "#5761C0", "#DB6015", "#B71300")
-p6 + scale_fill_manual(values = regions_viz1, guide = guide_legend(nrow = 2)) +
-  labs(title = "Regions Color Set with Light Green 1",
-       subtitle = "Hex codes: #002364, #00797F, #76BC21, #5761C0, #DB6015,\n#B71300")
+p6 + scale_fill_manual(values = regions_viz1, labels = regions_viz1, guide = guide_legend(nrow = 2)) +
+  labs(title = "Regions Color Set with Light Green 1")
 ```
 
 ```{r}
 #| echo: false
 regions_viz2 <- c("#002364", "#00797F", "#B1DC6B", "#5761C0", "#DB6015", "#B71300")
-p6 + scale_fill_manual(values = regions_viz2, guide = guide_legend(nrow = 2)) +
-  labs(title = "Regions Color Set with Light Green 2",
-       subtitle = "Hex codes: #002364, #00797F, #B1DC6B, #5761C0, #DB6015,\n#B71300")
+p6 + scale_fill_manual(values = regions_viz2, labels = regions_viz2, guide = guide_legend(nrow = 2)) +
+  labs(title = "Regions Color Set with Light Green 2")
 ```
 
 ## Paired gradient palette
@@ -170,9 +164,8 @@ One common scientific data visualization involves the comparison of multiple tre
 ```{r}
 #| echo: false
 pairs_gradient <- c("#001743", "#00559B", "#1EBEC7", "#90DFE3", "#DB6015", "#FFAB38")
-p6 + scale_fill_manual(values = pairs_gradient, guide = guide_legend(nrow = 2)) +
-  labs(title = "Paired Gradient Palette",
-       subtitle = "Hex codes: #001743, #00559B, #1EBEC7, #90DFE3, #DB6015,\n#FFAB38")
+p6 + scale_fill_manual(values = pairs_gradient, labels = pairs_gradient) +
+  labs(title = "Paired Gradient Palette")
 ```
 
 ## Opportunities to improve existing gradient palettes for use in data visualization
@@ -186,9 +179,8 @@ One shade of blue ( #002364) was identified by Viz Palette as difficult to disti
 ```{r}
 #| echo: false
 oceans <- c("#001743", "#002364", "#003087", "#0085CA", "#5EB6D9", "#C6E6F0")
-p6 + scale_fill_manual(values = oceans, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Oceans Palette",
-       subtitle = "Hex codes: #001743, #002364, #003087, #0085CA, #5EB6D9,\n#C6E6F0")
+p6 + scale_fill_manual(values = oceans, labels = oceans) +
+  labs(title = "NMFS Oceans Palette")
 
 ```
 
@@ -197,9 +189,8 @@ A simple substitution within the existing NMFS Color Set that improves overall c
 ```{r}
 #| echo: false
 oceans_viz <- c("#001743", "#003087", "#00559B", "#0085CA", "#5EB6D9", "#C6E6F0")
-p6 + scale_fill_manual(values = oceans_viz, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Oceans Palette with Blue Substitution",
-       subtitle = "Hex codes: #001743, #00559B, #003087, #0085CA, #5EB6D9,\n#C6E6F0")
+p6 + scale_fill_manual(values = oceans_viz, labels = oceans_viz) +
+  labs(title = "NMFS Oceans Palette with Blue Substitution")
 ```
 
 ##### Waves
@@ -209,9 +200,8 @@ Two colors were identified by Viz Palette as difficult to visually separate in s
 ```{r}
 #| echo: false
 waves <- c("#005E5E", "#00797F", "#1EBEC7", "#90DFE3")
-p4 + scale_fill_manual(values = waves, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Waves Palette",
-       subtitle = "Hex codes: #005E5E, #00797F, #1EBEC7, #90DFE3")
+p4 + scale_fill_manual(values = waves, labels = waves) +
+  labs(title = "NMFS Waves Palette")
 ```
 
 A simple substitution within the existing NMFS Color Set that improves overall color separation is to take the darkest teal (#005E5E) and replace it with one of the NOAA background colors that is a gray with green undertones (#283A38):
@@ -219,9 +209,8 @@ A simple substitution within the existing NMFS Color Set that improves overall c
 ```{r}
 #| echo: false
 waves_viz <- c("#283A38", "#00797F", "#1EBEC7", "#90DFE3")
-p4 + scale_fill_manual(values = waves_viz, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Waves Palette with Dark Gray Substitution",
-       subtitle = "Hex codes: #283A38, #00797F, #1EBEC7, #90DFE3")
+p4 + scale_fill_manual(values = waves_viz, labels = waves_viz) +
+  labs(title = "NMFS Waves Palette with Dark Gray Substitution")
 ```
 
 ##### Urchin
@@ -231,9 +220,8 @@ One shade of purple ( #5761C0) was identified by Viz Palette as difficult to dis
 ```{r}
 #| echo: false
 urchin <- c("#3B469A", "#5761C0", "#737BE6", "#A8B8FF")
-p4 + scale_fill_manual(values = urchin, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Urchin Palette",
-       subtitle = "Hex codes: #3B469A, #5761C0, #737BE6, #A8B8FF")
+p4 + scale_fill_manual(values = urchin, labels = urchin) +
+  labs(title = "NMFS Urchin Palette")
 ```
 
 This situation was a little more challenging, because there are fewer purples in the NMFS Color Set, and the problem color was in the interior of the gradient. The visualization could be improved by dropping the problem color ( #5761C0) and adding one of the NMFS background colors, a cool light gray (#F1F2F3) to the end of the gradient:
@@ -241,9 +229,8 @@ This situation was a little more challenging, because there are fewer purples in
 ```{r}
 #| echo: false
 urchin_viz <- c("#3B469A", "#737BE6", "#A8B8FF", "#F1F2F3")
-p4 + scale_fill_manual(values = urchin_viz, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Urchin Palette with Light Gray Addition",
-       subtitle = "Hex codes: #3B469A, #737BE6, #A8B8FF, #F1F2F3")
+p4 + scale_fill_manual(values = urchin_viz, labels = urchin_viz) +
+  labs(title = "NMFS Urchin Palette with Light Gray Addition")
 ```
 
 ##### Crustacean
@@ -253,9 +240,8 @@ One shade of orange ( #FF8400) was identified by Viz Palette as difficult to dis
 ```{r}
 #| echo: false
 crustacean <- c("#853B00", "#DB6015", "#FF8400", "#FFAB38")
-p4 + scale_fill_manual(values = crustacean, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Crustacean Palette",
-       subtitle = "Hex codes: #853B00, #DB6015, #FF8400, #FFAB38")
+p4 + scale_fill_manual(values = crustacean, labels = crustacean) +
+  labs(title = "NMFS Crustacean Palette")
 ```
 
 This is a similarly challenging situation as the Urchin palette, with limited orange options and a problem within the interior of the gradient. Two potential options to improve the visualization involve dropping the problem color ( #FF8400) and either adding one of the NMFS background colors, a dark gray (#283A38) to the beginning of the gradient, or one of the NMFS alert colors, a yellow (#FFFF65) to the end of the gradient:
@@ -263,14 +249,12 @@ This is a similarly challenging situation as the Urchin palette, with limited or
 ```{r}
 #| echo: false
 crustacean_viz1 <- c("#283A38", "#853B00", "#DB6015", "#FFAB38")
-p4 + scale_fill_manual(values = crustacean_viz1, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Crustacean Palette with Dark Gray Addition",
-       subtitle = "Hex codes: #283A38, #853B00, #DB6015, #FFAB38")
+p4 + scale_fill_manual(values = crustacean_viz1, labels = crustacean_viz1) +
+  labs(title = "NMFS Crustacean Palette with Dark Gray Addition")
 
 crustacean_viz2 <- c("#853B00", "#DB6015", "#FFAB38", "#FFFF65")
-p4 + scale_fill_manual(values = crustacean_viz2, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Crustacean Palette with Yellow Addition",
-       subtitle = "Hex codes: #853B00, #DB6015, #FFAB38, #FFFF65")
+p4 + scale_fill_manual(values = crustacean_viz2, labels = crustacean_viz2) +
+  labs(title = "NMFS Crustacean Palette with Yellow Addition")
 ```
 
 The gray and the yellow tend to stand out in these figures, which is not typically the goal of a visualization involving gradient palettes. By slightly tweaking the orange that was causing color separation issues, you get a gold with orange undertones that is more aligned with the overall palette (#FFDD6A), while still addressing the color separation problem. The drawback to this approach is that the new color is not within the NMFS Color Set:
@@ -278,9 +262,9 @@ The gray and the yellow tend to stand out in these figures, which is not typical
 ```{r}
 #| echo: false
 crustacean_viz3 <- c("#853B00", "#DB6015", "#FFAB38", "#FFDD6A")
-p4 + scale_fill_manual(values = crustacean_viz3, guide = guide_legend(nrow = 2)) +
+p4 + scale_fill_manual(values = crustacean_viz3, labels = crustacean_viz3) +
   labs(title = "NMFS Crustacean Palette With Gold Substitution",
-       subtitle = "Note: fourth color outside NMFS Color Set\nHex codes: #853B00, #DB6015, #FFAB38, #FFDD6A")
+       subtitle = "Note: fourth color outside NMFS Color Set")
 ```
 
 ##### Coral
@@ -290,9 +274,8 @@ Two colors were identified by Viz Palette as difficult to visually separate in s
 ```{r}
 #| echo: false
 coral <- c("#901200", "#B71300", "#DB2207", "#FF6C57")
-p4 + scale_fill_manual(values = coral, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Coral Palette",
-       subtitle = "Hex codes: #901200, #B71300, #DB2207, #FF6C57")
+p4 + scale_fill_manual(values = coral, labels = coral) +
+  labs(title = "NMFS Coral Palette")
 ```
 
 This situation is similar to that observed for the Urchin and Crustacean palettes in that the issue lies within the interior of the gradient. One option is to remove #B71300, but replacing it with a light gray at the end of the gradient is tricky because none of the NMFS light gray background colors look very good with this warm palette. Using a dark gray at the beginning improves the overall color separation:
@@ -300,9 +283,8 @@ This situation is similar to that observed for the Urchin and Crustacean palette
 ```{r}
 #| echo: false
 coral_viz1 <- c("#283A38","#901200", "#DB2207", "#FF6C57")
-p4 + scale_fill_manual(values = coral_viz1, guide = guide_legend(nrow = 2)) +
-  labs(title = "NMFS Coral Palette with Gray Addition",
-       subtitle = "Hex codes: #283A38, #901200, #DB2207, #FF6C57")
+p4 + scale_fill_manual(values = coral_viz1, labels = coral_viz1) +
+  labs(title = "NMFS Coral Palette with Gray Addition")
 ```
 
 The dark gray stands out in this figure, which is not typically the goal of a visualization involving gradient palettes. By removing #B71300 and tweaking the lightest color of the palette, you get a peach color that is more aligned with the overall gradient (#FFD1B4):
@@ -310,7 +292,7 @@ The dark gray stands out in this figure, which is not typically the goal of a vi
 ```{r}
 #| echo: false
 coral_viz2 <- c("#901200", "#DB2207", "#FF6C57", "#FFD1B4")
-p4 + scale_fill_manual(values = coral_viz2, guide = guide_legend(nrow = 2)) +
+p4 + scale_fill_manual(values = coral_viz2, labels = coral_viz2) +
   labs(title = "NMFS Coral Palette with Peach Addition",
-       subtitle = "Note: fourth color outside NMFS Color Set\nHex codes: #901200, #DB2207, #FF6C57, #FFD1B4")
+       subtitle = "Note: fourth color outside NMFS Color Set")
 ```
