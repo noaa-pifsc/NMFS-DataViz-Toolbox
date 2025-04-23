@@ -4,6 +4,7 @@
 # Set up the environment
 library(tidyverse, quietly = TRUE)
 library(nmfspalette)
+library(extrafont)
 
 ### Access the data
 # These data are not well formatted for easy ingestion (why is NOAA so bad at this?!)
@@ -49,7 +50,6 @@ RadForcing_latest <- filter(RadForcing_tidy, Year == max(Year)) |>
 
 # Still to add:
 # size 12 font (generally, 10+ should work)
-# Arial font (to render ʻŌlelo Hawaiʻi; Calibri works, too)
 # Getting all the bar labels to print in the base R version
 
 # Just a note that this code includes details that you'd only know if you 
@@ -62,8 +62,8 @@ yLabel <- expression(bold(Radiative ~ Forcing ~ (W ~ m^-2)))
 
 # with base R
 # dev.new(width = 6, height = 4, bg = "transparent") # or pdf() or png()
-# pdf("BarPlot_pub.pdf", width = 6, height = 4, bg = "transparent") # or png() or dev.new()
-# png("BarPlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent") # or pdf() or dev.new()
+# pdf("BarPlot_pub.pdf", width = 6, height = 4, bg = "transparent", family = "ArialMT") # or png() or dev.new()
+# png("BarPlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent", family = "ArialMT") # or pdf() or dev.new()
 barplot(RadForcing_latest$Forcing, 
         ylim = c(0, 2.5), yaxt = "n", # suppress y-axis labels for now
         col = "#0085CA", border = NA)
@@ -101,7 +101,8 @@ p <- ggplot(RadForcing_latest, aes(GHG, Forcing)) +
     axis.text.y = element_text(size = 10),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    panel.background = element_rect(fill = "transparent")
+    panel.background = element_rect(fill = "transparent"),
+    text = element_text(family = "ArialMT")
   )
 
 # pdf("BarPlot_pub_ggplot.pdf", width = 6, height = 4, bg = "transparent") # or png() or ggsave()

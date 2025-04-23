@@ -4,6 +4,7 @@
 # Set up the environment
 library(tidyverse, quietly = TRUE)
 library(nmfspalette)
+library(extrafont)
 
 ### Access the data
 # These data are not well formatted for easy ingestion (why is NOAA so bad at this?!)
@@ -28,7 +29,6 @@ RadForcing$Year <- as.numeric(RadForcing$Year)
 
 # Still to add:
 # size 12 font (generally, 10+ should work)
-# Arial font (to render ʻŌlelo Hawaiʻi; Calibri works, too)
 
 # Just a note that this code includes details that you'd only know if you 
 # explored the data and tested out a few parameters.  
@@ -40,8 +40,8 @@ yLabel <- expression(bold(Radiative ~ Forcing ~ of ~ CO[2] ~ (W ~ m^-2)))
 
 # with base R
 # dev.new(width = 6, height = 4, bg = "transparent") # or pdf() or png()
-# pdf("LinePlot_pub.pdf", width = 6, height = 4, bg = "transparent") # or png() or dev.new()
-# png("LinePlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent") # or pdf() or dev.new()
+# pdf("LinePlot_pub.pdf", width = 6, height = 4, bg = "transparent", family = "ArialMT") # or png() or dev.new()
+# png("LinePlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent", family = "ArialMT") # or pdf() or dev.new()
 plot(RadForcing$Year, RadForcing$CO2, type = "l", lwd = 2, 
      xlim = c(1979, 2023), ylim = c(1, 2.3),
      xaxt = "n", yaxt = "n", # no axes ticks, so we can customize them
@@ -80,12 +80,17 @@ p <- ggplot(RadForcing, aes(Year, CO2)) +
     axis.text.y = element_text(size = 10),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    panel.background = element_rect(fill = "transparent")
+    panel.background = element_rect(fill = "transparent"),
+    text = element_text(family = "ArialMT")
     )
 
 # pdf("LinePlot_pub_ggplot.pdf", width = 6, height = 4, bg = "transparent") # or png() or ggsave()
 # png("LinePlot_pub_ggplot.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent") # or pdf() or ggsave()
-print(p)
+p
 # dev.off() # if using pdf() or png()
+
+# This next step didn't prove necessary for me, but leaving it in here in case others need it
+# embed_fonts("LinePlot_pub_ggplot.pdf", outfile="LinePlot_pub_ggplot_fontTest_embed.pdf")
+
 
 
