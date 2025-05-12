@@ -68,7 +68,8 @@ title(ylab = yLabel, line = 2.5, cex.lab = 1.5) # move y-axis label so superscri
 # dev.off() # if using pdf() or png()
 
 # ggplot2
-# Still working on this code
+# I don't love these font sizes.  They're pretty small.  With a shorter y-axis
+# label, I'd use larger fonts.  
 p <- ggplot(RadForcing, aes(Year, CO2)) + 
   geom_vline(xintercept = seq(1980, 2020, 5), color="#F1F3F3") + # vertical grid lines
   geom_hline(yintercept = seq(1, 2.2, 0.2), color="#F1F3F3") + # horizontal grid lines
@@ -82,19 +83,18 @@ p <- ggplot(RadForcing, aes(Year, CO2)) +
                      labels = ~ifelse(.x %in% c(seq(1, 2.2, 0.2)), .x, ""),
                      expand = c(0,0)) + # remove padding
   theme(
-    axis.title.x = element_text(face = "bold", size = 24),
-    axis.title.y = element_text(size = 24),
-    axis.text.x = element_text(size = 18),
-    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(face = "bold", size = 15),
+    axis.title.y = element_text(size = 15),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
     panel.background = element_rect(fill = "transparent"),
     text = element_text(family = "ArialMT")
   )
 
-pdf("LinePlot_pres_ggplot.pdf", width = 6, height = 4, bg = "transparent") # or png() or ggsave()
+# pdf("LinePlot_pres_ggplot.pdf", width = 6, height = 4, bg = "transparent") # or png() or ggsave()
 # png("LinePlot_pres_ggplot.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent") # or pdf() or ggsave()
-par(mar = c(6, 6, 6, 1.5) + 0.1)
 p
-dev.off() # if using pdf() or png()
+# dev.off() # if using pdf() or png()
 
