@@ -27,9 +27,6 @@ RadForcing$Year <- as.numeric(RadForcing$Year)
 # Transparent background (PIFSC requirement)
 # Bold axes labels
 
-# Still to add:
-# size 12 font (generally, 10+ should work)
-
 # Just a note that this code includes details that you'd only know if you 
 # explored the data and tested out a few parameters.  
 # Some of these things could be automated, like tying the axes limits to the 

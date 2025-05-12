@@ -1,5 +1,5 @@
 # The purpose of this script is to create an example line plot that's 
-# publication-ready and NMFS-branded. 
+# presentation-ready and NMFS-branded. 
 
 # Set up the environment
 library(tidyverse, quietly = TRUE)
@@ -26,9 +26,6 @@ RadForcing$Year <- as.numeric(RadForcing$Year)
 # Minimal background grid for interpretation
 # Transparent background (PIFSC requirement)
 # Bold axes labels
-
-# Still to add:
-# size 12 font (generally, 10+ should work)
 
 # Just a note that this code includes details that you'd only know if you 
 # explored the data and tested out a few parameters.  
