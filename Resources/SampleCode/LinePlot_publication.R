@@ -92,5 +92,3 @@ p
 # This next step didn't prove necessary for me, but leaving it in here in case others need it
 # embed_fonts("LinePlot_pub_ggplot.pdf", outfile="LinePlot_pub_ggplot_fontTest_embed.pdf")
 
-
-
