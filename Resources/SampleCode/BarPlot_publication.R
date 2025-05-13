@@ -24,16 +24,16 @@ RadForcing$Year <- as.numeric(RadForcing$Year)
 # Rename chemical formulas with words, eliminate special characters
 RadForcing_gases <- select(RadForcing, 
                            Year, 
-                           `Carbon Dioxide` = CO2, 
+                           `Carbon\nDioxide` = CO2, 
                            Methane = CH4, 
-                           `Nitrous Oxide` = N2O, 
+                           `Nitrous\nOxide` = N2O, 
                            CFCs = `CFC*`, 
                            HCFCs, 
                            HFCs = `HFCs*`) 
 
 # Make the data "tidy" for easier plotting
 RadForcing_tidy <- RadForcing_gases |>
-  pivot_longer(cols = c(`Carbon Dioxide`, Methane, `Nitrous Oxide`, CFCs, HCFCs, HFCs),
+  pivot_longer(cols = c(`Carbon\nDioxide`, Methane, `Nitrous\nOxide`, CFCs, HCFCs, HFCs),
                names_to = "GHG", values_to = "Forcing")
 
 # Select the most recent year and order the values by their radiative forcing
@@ -48,10 +48,6 @@ RadForcing_latest <- filter(RadForcing_tidy, Year == max(Year)) |>
 # Bold axes labels
 # Bars ordered from greatest to least
 
-# Still to add:
-# size 12 font (generally, 10+ should work)
-# Getting all the bar labels to print in the base R version
-
 # Just a note that this code includes details that you'd only know if you 
 # explored the data and tested out a few parameters.  
 # Some of these things could be automated, like tying the axes limits to the 
@@ -63,7 +59,7 @@ yLabel <- expression(bold(Radiative ~ Forcing ~ (W ~ m^-2)))
 # with base R
 # dev.new(width = 6, height = 4, bg = "transparent") # or pdf() or png()
 # pdf("BarPlot_pub.pdf", width = 6, height = 4, bg = "transparent", family = "ArialMT") # or png() or dev.new()
-# png("BarPlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent", family = "ArialMT") # or pdf() or dev.new()
+png("BarPlot_pub.png", width = 6, height = 4, units = "in", res = 300, bg = "transparent", family = "ArialMT") # or pdf() or dev.new()
 barplot(RadForcing_latest$Forcing, 
         ylim = c(0, 2.5), yaxt = "n", # suppress y-axis labels for now
         col = "#0085CA", border = NA)
@@ -81,7 +77,7 @@ barplot(RadForcing_latest$Forcing,
         font.lab = 2,
         add = TRUE)
 title(ylab = yLabel, line = 2.5) # move y-axis label so superscripts aren't cut off
-# dev.off() # if using pdf() or png()
+dev.off() # if using pdf() or png()
 
 # ggplot2
 # get the order of the gases, for arranging the bars
