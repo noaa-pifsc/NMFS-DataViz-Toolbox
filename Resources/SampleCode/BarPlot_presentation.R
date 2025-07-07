@@ -85,8 +85,6 @@ dev.off() # if using pdf() or png()
 # get the order of the gases, for arranging the bars
 gases <- RadForcing_latest$GHG
 p <- ggplot(RadForcing_latest, aes(GHG, Forcing)) + 
-  geom_hline(yintercept = seq(0.5, 2.5, 0.5), color="#F1F3F3") + # horizontal grid lines
-  geom_hline(yintercept = 0, color="black") + # zero line
   geom_col(fill = "#0085CA") + 
   scale_x_discrete(limits = gases) + 
   scale_y_continuous(name = yLabel, 
@@ -97,8 +95,10 @@ p <- ggplot(RadForcing_latest, aes(GHG, Forcing)) +
     axis.title.y = element_text(size = 22),
     axis.text.x = element_text(size = 14),
     axis.text.y = element_text(size = 14),
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_blank(),
+    axis.line = element_line(), # adds the x and y axis lines (zero line)
+    panel.grid.minor = element_blank(),  # removes minor grid lines
+    panel.grid.major.x = element_blank(),  # removes major x grid line 
+    panel.grid.major.y = element_line(colour = '#F1F3F3'),  # adds gray to major y grid line
     panel.background = element_rect(fill = "transparent"),
     text = element_text(family = "ArialMT")
   )
