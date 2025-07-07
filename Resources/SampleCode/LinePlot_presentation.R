@@ -68,24 +68,26 @@ title(ylab = yLabel, line = 2.5, cex.lab = 1.5) # move y-axis label so superscri
 # I don't love these font sizes.  They're pretty small.  With a shorter y-axis
 # label, I'd use larger fonts.  
 p <- ggplot(RadForcing, aes(Year, CO2)) + 
-  geom_vline(xintercept = seq(1980, 2020, 5), color="#F1F3F3") + # vertical grid lines
-  geom_hline(yintercept = seq(1, 2.2, 0.2), color="#F1F3F3") + # horizontal grid lines
   geom_line(group = 1, color = "#0085CA", linewidth = 1.25) + 
   scale_x_continuous(name = "Year",
-                     breaks = seq(1979, 2023, 1),
-                     labels = ~ifelse(.x %in% c(seq(1980, 2020, 5)), .x, ""), 
+                     breaks = seq(1980, 2020, 5),  # where you want your major breaks and labels
+                     minor_breaks = seq(1979, 2023, 1),  # where you want tick marks if more frequent than labels
+                     guide = guide_axis(minor.ticks = T),  # adds the tick marks at minor breaks
                      expand = c(0,0)) + # remove padding
   scale_y_continuous(name = yLabel, 
-                     breaks = seq(1, 2.3, 0.1), limits = c(1, 2.3),
-                     labels = ~ifelse(.x %in% c(seq(1, 2.2, 0.2)), .x, ""),
+                     breaks = seq(1, 2.2, 0.2), # where you want your major breaks and labels
+                     minor_breaks = seq(1, 2.3, 0.1), # where you want tick marks if more frequent than labels
+                     guide = guide_axis(minor.ticks = T),  # adds the tick marks at minor breaks
+                     limits = c(1, 2.3),
                      expand = c(0,0)) + # remove padding
   theme(
     axis.title.x = element_text(face = "bold", size = 15),
     axis.title.y = element_text(size = 15),
     axis.text.x = element_text(size = 10),
     axis.text.y = element_text(size = 10),
+    axis.line = element_line(), 
     panel.grid.minor = element_blank(),
-    panel.grid.major = element_blank(),
+    panel.grid.major = element_line(colour = '#F1F3F3'),
     panel.background = element_rect(fill = "transparent"),
     text = element_text(family = "ArialMT")
   )
